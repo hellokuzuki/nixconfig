@@ -2,131 +2,81 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Codebase Overview
+## Repository Overview
 
-This is a NixOS system configuration using Nix flakes with Home Manager integration. The configuration manages both system-level and user-specific packages for a NixOS installation.
+This is a NixOS and Home Manager configuration using Nix flakes. The configuration manages both system-level (NixOS) and user-level (Home Manager) settings for a user named "mark" on a system called "nixos".
+
+## Commands
+
+### System Configuration (NixOS)
+```bash
+# Rebuild and switch to new NixOS configuration
+sudo nixos-rebuild switch --flake .#nixos
+
+# Test configuration without switching
+sudo nixos-rebuild test --flake .#nixos
+
+# Build configuration without switching
+sudo nixos-rebuild build --flake .#nixos
+```
+
+### Home Manager Configuration
+```bash
+# Apply home-manager configuration
+home-manager switch --flake .#mark@nixos
+
+# Build home-manager configuration without switching
+home-manager build --flake .#mark@nixos
+```
+
+### Nix Flake Commands
+```bash
+# Update flake inputs
+nix flake update
+
+# Show flake metadata
+nix flake show
+
+# Format nix files
+nix fmt
+```
 
 ## Architecture
 
-### Directory Structure
-```
-.
-├── flake.nix                 # Entry point, defines system configurations
-├── hosts/                    # Machine-specific configurations
-│   └── nixos/               # Default host configuration
-│       ├── default.nix      # Main host configuration
-│       └── hardware-configuration.nix
-├── home/                     # Home-manager configuration for user mark
-│   ├── default.nix          # Main home configuration
-│   ├── packages.nix         # User packages
-│   └── programs.nix         # User program configurations
-├── modules/                  # Reusable configuration modules
-│   └── system/              # System-wide modules
-│       ├── boot.nix        # Bootloader configuration
-│       ├── desktop.nix     # Desktop environment (GNOME)
-│       ├── locale.nix      # Timezone and localization
-│       ├── networking.nix  # Network and SSH configuration
-│       ├── packages.nix    # System packages
-│       └── users.nix       # User accounts
-├── overlays/                # Custom package overlays (empty)
-└── lib/                     # Helper functions (empty)
-```
+### Flake Structure
+- **flake.nix**: Main entry point defining inputs (nixpkgs, home-manager, claude-code) and outputs
+- Uses nixpkgs 25.05 stable with unstable overlay available
+- Supports multiple systems (x86_64-linux, aarch64-linux, darwin variants)
 
-### Key Design Principles
-- **Modular**: System configuration split into focused modules for easier maintenance
-- **Host-based**: Machine-specific settings isolated in hosts/ directory
-- **Clean separation**: System modules in modules/system/, user config in home/
+### Directory Layout
+- **nixos/**: System-level NixOS configuration
+  - `configuration.nix`: Main system config (GNOME, networking, users, system packages)
+  - `hardware-configuration.nix`: Hardware-specific settings
+  
+- **home-manager/**: User-level configuration
+  - `home.nix`: Main home config importing all modules
+  - `packages.nix`: User packages (ripgrep, fzf, eza, etc.)
+  - `fonts.nix`: Font configuration
+  - `programs/`: Modular program configurations
+    - `browsers/`: Chrome browser setup
+    - `coding/`: VSCode configuration
+    - `shell/`: Fish shell and Starship prompt
+    - `terminals/`: Kitty terminal config
 
-## Common Commands
+- **modules/**: Reusable NixOS and home-manager modules
+- **overlays/**: Custom package overlays including unstable packages
+- **pkgs/**: Custom package definitions
 
-### Building and Switching Configuration (with NH)
-```bash
-# Using NH (Nix Helper) - recommended
-nh os switch              # Build and switch NixOS configuration
-nh os switch --ask        # Build and switch with confirmation
-nh home switch            # Build and switch home-manager configuration
+### Key Configuration Details
+- User "mark" uses Fish shell as default
+- Chinese input method (fcitx5) configured with Rime and pinyin
+- GNOME desktop environment with Wayland
+- System packages include development tools (git, vim, JDK21, AWS CLI, MySQL Workbench, Postman)
+- Home packages focus on modern CLI tools (ripgrep, zoxide, fzf, eza, fd)
 
-# Traditional commands
-sudo nixos-rebuild switch --flake .#nixos
-sudo nixos-rebuild build --flake .#nixos
-sudo nixos-rebuild test --flake .#nixos
-```
-
-### Fish Shell Abbreviations
-```bash
-nixu    # Expands to: nh os switch --ask
-homeu   # Expands to: nh home switch --ask
-nixc    # Expands to: nh clean all --keep-since 7d --keep 5
-cd      # Expands to: z (using zoxide)
-```
-
-### Cleaning Old Generations
-```bash
-# Clean all old generations (keeps last 7 days or 5 generations)
-nh clean all
-
-# Clean with custom parameters
-nh clean all --keep-since 3d --keep 3
-
-# Dry run to see what would be deleted
-nh clean all --dry
-
-# Clean only user or system profiles
-nh clean user
-nh clean profile
-```
-
-### Updating Dependencies
-```bash
-# Update flake lock file
-nix flake update
-
-# Update specific input
-nix flake lock --update-input nixpkgs
-```
-
-### Checking Configuration
-```bash
-# Check flake for errors
-nix flake check
-
-# Show flake info
-nix flake show
-```
-
-## Configuration Notes
-
-- System timezone: Australia/Melbourne
-- Desktop environment: GNOME with GDM
-- Currently tracking nixpkgs-unstable branch
-- Home Manager is integrated as a NixOS module
-- Experimental features enabled: nix-command, flakes
-
-
-  1. Replaced GNOME with Hyprland in /home/mark/flakes/modules/system/desktop.nix:11-13 - Switched from GDM/GNOME to SDDM/Hyprland with
-   Wayland support
-  2. Added essential Hyprland packages in /home/mark/flakes/modules/system/packages.nix:24-40:
-    - Window manager utilities: waybar, rofi-wayland, dunst, swww
-    - Terminal: kitty
-    - Clipboard/screenshot tools: wl-clipboard, grim, slurp
-    - Lock screen: swaylock-effects, swayidle
-    - System controls: brightnessctl, pamixer, playerctl
-    - System tray apps: networkmanagerapplet, blueman, pavucontrol
-  3. Created Hyprland user configuration in /home/mark/flakes/home/programs/desktop/hyprland.nix with:
-    - Super key as modifier
-    - Modern animations and blur effects
-    - Workspace management (1-10)
-    - Common keybindings for terminal, file manager, app launcher
-    - Media key support
-    - Screenshot functionality
-  4. Configured Waybar in /home/mark/flakes/home/programs/desktop/waybar.nix with workspaces, clock, system stats, and tray
-
-  The configuration passes nix flake check. To apply these changes, run:
-  nh os switch --ask
-
-  After rebooting, you'll be greeted by SDDM and can log into Hyprland. The default keybindings include:
-  - Super+Return: Open terminal (kitty)
-  - Super+R: App launcher (rofi)
-  - Super+Q: Close window
-  - Super+1-9: Switch workspaces
-  - Print: Screenshot selection
+### Modifying Configuration
+When adding new programs or system packages:
+1. System packages go in `nixos/configuration.nix` under `environment.systemPackages`
+2. User packages go in `home-manager/packages.nix` under `home.packages`
+3. Program-specific configs should be created as new modules under `home-manager/programs/`
+4. After changes, use the rebuild commands above to apply them
