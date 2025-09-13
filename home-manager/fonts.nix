@@ -1,5 +1,8 @@
 { config, pkgs, ... }:
 
+let
+  kose-font = pkgs.callPackage ../pkgs/fonts/kose.nix { };
+in
 {
   # Install required fonts
   home.packages = with pkgs; [
@@ -17,6 +20,7 @@
     maple-mono.NF-unhinted
     maple-mono.NF-CN-unhinted
     font-awesome
+    kose-font  # Xiaolai fonts (XiaolaiSC and XiaolaiMonoSC)
   ];
 
   # Enable fontconfig and set default fonts
@@ -24,14 +28,9 @@
 
   fonts.fontconfig = {
     defaultFonts = {
-      monospace = [ "Maple Mono NF" "lxgw-wenkai" ];
-      sansSerif = [ "Noto Sans" ];
-      serif = [ "Noto Serif" ];
+      monospace = [ "Maple Mono NF" "XiaolaiMonoSC" ];
+      sansSerif = [ "Noto Sans" "XiaolaiSC" ];
+      serif = [ "Noto Serif" "XiaolaiSC" ];
     };
-
-    # # Apply lxgw-wenkai for Chinese text
-    # langOverrides = {
-    #   "zh" = [ "lxgw-wenkai" ];
-    # };
   };
 }
