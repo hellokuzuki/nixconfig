@@ -12,7 +12,17 @@
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot.consoleMode = "1";  # Use lower resolution for readability on 13" 4K display
+  boot.loader.systemd-boot.configurationLimit = 10;  # Keep 10 generations in menu
   boot.loader.efi.canTouchEfiVariables = true;
+  
+  # # Increase console font size for better readability on high DPI display
+  # console = {
+  #   earlySetup = true;
+  #   font = "ter-v32n";
+  #   packages = [ pkgs.terminus_font ];
+  # };
+  
 
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -82,7 +92,7 @@
     isNormalUser = true;
     description = "mark";
     shell = pkgs.fish;
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "docker"];
     packages = with pkgs; [
     #  thunderbird
     ];
@@ -103,6 +113,9 @@
   #  wget
       git
       vim
+      curl
+      wget
+
       home-manager
 
       claude-code
@@ -116,6 +129,26 @@
       kitty
       fish
   ];
+
+  virtualisation = {
+    # libvirtd.enable = true;
+
+    # podman = {
+    #   enable = true;
+    #   defaultNetwork.settings.dns_enabled = true;
+    # };
+
+    docker = {
+      enable = true;
+      storageDriver = "btrfs";
+      rootless = {
+        enable = true;
+        setSocketVariable = true;
+      };
+    };
+
+    oci-containers.backend = "docker";
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
