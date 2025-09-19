@@ -16,5 +16,11 @@
     fd
 
     nh
+    
+    # LSP servers for Neovim
+    nil  # Nix LSP
+    lua-language-server  # Lua LSP
+    nodePackages.typescript-language-server  # TypeScript/JavaScript
+    pyright  # Python (not under nodePackages)
   ];
 }

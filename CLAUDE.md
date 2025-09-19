@@ -4,79 +4,66 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repository Overview
 
-This is a NixOS and Home Manager configuration using Nix flakes. The configuration manages both system-level (NixOS) and user-level (Home Manager) settings for a user named "mark" on a system called "nixos".
+NixOS and Home Manager configuration using Nix flakes for user "mark" on hostname "nixos". The setup uses nixpkgs 25.05 with fcitx5 for Chinese input and GNOME desktop.
 
 ## Commands
 
-### System Configuration (NixOS)
+### Quick Commands (using nh helper)
 ```bash
-# Rebuild and switch to new NixOS configuration
+# System rebuild - defined in fish.nix as 'nixu'
+nh os switch --ask .
+
+# Home Manager rebuild - defined in fish.nix as 'homeu'  
+nh home switch --ask .
+
+# Clean old generations - defined in fish.nix as 'nixc'
+sudo -E nh clean all --keep-since 7d --keep 5
+```
+
+### Standard Commands
+```bash
+# NixOS rebuild
 sudo nixos-rebuild switch --flake .#nixos
 
-# Test configuration without switching
-sudo nixos-rebuild test --flake .#nixos
-
-# Build configuration without switching
-sudo nixos-rebuild build --flake .#nixos
-```
-
-### Home Manager Configuration
-```bash
-# Apply home-manager configuration
+# Home Manager rebuild
 home-manager switch --flake .#mark@nixos
 
-# Build home-manager configuration without switching
-home-manager build --flake .#mark@nixos
-```
-
-### Nix Flake Commands
-```bash
-# Update flake inputs
+# Update all flake inputs
 nix flake update
 
-# Show flake metadata
-nix flake show
-
-# Format nix files
+# Format nix files (uses alejandra)
 nix fmt
 ```
 
 ## Architecture
 
-### Flake Structure
-- **flake.nix**: Main entry point defining inputs (nixpkgs, home-manager, claude-code) and outputs
-- Uses nixpkgs 25.05 stable with unstable overlay available
-- Supports multiple systems (x86_64-linux, aarch64-linux, darwin variants)
+### Core Structure
+- **flake.nix**: Entry point with inputs (nixpkgs 25.05, nixpkgs-unstable, home-manager, claude-code)
+- **nixos/configuration.nix**: System config - GNOME, networking, Docker, development tools
+- **home-manager/home.nix**: User config entry importing packages and programs
+- **overlays/**: Unstable packages overlay for accessing latest versions
 
-### Directory Layout
-- **nixos/**: System-level NixOS configuration
-  - `configuration.nix`: Main system config (GNOME, networking, users, system packages)
-  - `hardware-configuration.nix`: Hardware-specific settings
-  
-- **home-manager/**: User-level configuration
-  - `home.nix`: Main home config importing all modules
-  - `packages.nix`: User packages (ripgrep, fzf, eza, etc.)
-  - `fonts.nix`: Font configuration
-  - `programs/`: Modular program configurations
-    - `browsers/`: Chrome browser setup
-    - `coding/`: VSCode configuration
-    - `shell/`: Fish shell and Starship prompt
-    - `terminals/`: Kitty terminal config
+### Key Configurations
 
-- **modules/**: Reusable NixOS and home-manager modules
-- **overlays/**: Custom package overlays including unstable packages
-- **pkgs/**: Custom package definitions
+**System packages** (nixos/configuration.nix):
+- Development: git, vim, JDK21, awscli2, claude-code
+- Communication: slack, teams-for-linux  
+- Database/API: mysql-workbench, postman
+- Virtualization: Docker with btrfs storage driver
 
-### Key Configuration Details
-- User "mark" uses Fish shell as default
-- Chinese input method (fcitx5) configured with Rime and pinyin
-- GNOME desktop environment with Wayland
-- System packages include development tools (git, vim, JDK21, AWS CLI, MySQL Workbench, Postman)
-- Home packages focus on modern CLI tools (ripgrep, zoxide, fzf, eza, fd)
+**User packages** (home-manager/packages.nix):
+- CLI tools: ripgrep, zoxide, fzf, eza, fd, nh
+- System info: neofetch, htop
 
-### Modifying Configuration
-When adding new programs or system packages:
-1. System packages go in `nixos/configuration.nix` under `environment.systemPackages`
-2. User packages go in `home-manager/packages.nix` under `home.packages`
-3. Program-specific configs should be created as new modules under `home-manager/programs/`
-4. After changes, use the rebuild commands above to apply them
+**Programs** (home-manager/programs/):
+- Shell: Fish with zoxide, custom abbreviations (nixu, homeu, nixc)
+- Editor: Neovim with LSP and Treesitter configured
+- VSCode: Defined in vscode.nix
+- Terminal: Kitty
+- Prompt: Starship
+
+### Important Details
+- Fish shell is default for user mark
+- Chinese input via fcitx5 with pinyin support
+- Docker enabled with rootless mode
+- Experimental features: nix-command, flakes
