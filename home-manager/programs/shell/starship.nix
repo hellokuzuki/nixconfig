@@ -6,38 +6,57 @@
     settings = {
       format = "$directory$git_branch$git_status$time\n$character ";
 
-      palette = "rose-pine";
+      palette = "catppuccin-mocha";
 
-      palettes.rose-pine = {
-        overlay = "#26233a";
-        love = "#eb6f92";
-        gold = "#f6c177";
-        rose = "#e0def4";
-        pine = "#31748f";
-        foam = "#9ccfd8";
-        iris = "#c4a7e7";
+      palettes.catppuccin-mocha = {
+        rosewater = "#f5e0dc";
+        flamingo = "#f2cdcd";
+        pink = "#f5c2e7";
+        mauve = "#cba6f7";
+        red = "#f38ba8";
+        maroon = "#eba0ac";
+        peach = "#fab387";
+        yellow = "#f9e2af";
+        green = "#a6e3a1";
+        teal = "#94e2d5";
+        sky = "#89dceb";
+        sapphire = "#74c7ec";
+        blue = "#89b4fa";
+        lavender = "#b4befe";
+        text = "#cdd6f4";
+        subtext1 = "#bac2de";
+        subtext0 = "#a6adc8";
+        overlay2 = "#9399b2";
+        overlay1 = "#7f849c";
+        overlay0 = "#6c7086";
+        surface2 = "#585b70";
+        surface1 = "#45475a";
+        surface0 = "#313244";
+        base = "#1e1e2e";
+        mantle = "#181825";
+        crust = "#11111b";
       };
 
       character = {
         format = "$symbol ";
-        success_symbol = "[╰─](bold iris)[ ](bold iris)";
-        error_symbol = "[╰─](bold iris)[ ](bold love)";
-        vimcmd_symbol = "[╰─](bold iris)[ ](bold foam)";
-        vimcmd_visual_symbol = "[╰─](bold iris)[ ](bold pine)";
-        vimcmd_replace_symbol = "[╰─](bold iris)[ ](bold gold)";
-        vimcmd_replace_one_symbol = "[╰─](bold iris)[ ](bold gold)";
+        success_symbol = "[╰─](bold mauve)[ ](bold mauve)";
+        error_symbol = "[╰─](bold mauve)[ ](bold red)";
+        vimcmd_symbol = "[╰─](bold mauve)[ ](bold teal)";
+        vimcmd_visual_symbol = "[╰─](bold mauve)[ ](bold blue)";
+        vimcmd_replace_symbol = "[╰─](bold mauve)[ ](bold yellow)";
+        vimcmd_replace_one_symbol = "[╰─](bold mauve)[ ](bold yellow)";
       };
 
       container = {
         format = " [$symbol $name]($style) ";
         symbol = " ";
-        style = "love bold";
+        style = "red bold";
         disabled = false;
       };
 
       directory = {
         format = "[╭─ $path ]($style)";
-        style = "bold iris";
+        style = "bold mauve";
         truncation_length = 3;
         truncation_symbol = "…/";
         substitutions = {
@@ -47,124 +66,124 @@
       };
 
       git_branch = {
-        format = "[](fg:overlay)[ $symbol $branch ]($style)[](fg:overlay) ";
-        style = "bg:overlay fg:foam";
+        format = "[](fg:base)[ $symbol $branch ]($style)[](fg:base) ";
+        style = "bg:base fg:teal";
         symbol = " ";
       };
 
       git_status = {
         disabled = false;
-        style = "fg:love";
+        style = "fg:red";
         format = "([$all_status$ahead_behind]($style))";
-        up_to_date = "[ 󰋑 ](fg:iris)";
-        untracked = "[?($count)](fg:gold)";
-        stashed = "[$](fg:iris)";
-        modified = "[!($count)](fg:gold)";
-        renamed = "[»($count)](fg:iris)";
+        up_to_date = "[ 󰋑 ](fg:mauve)";
+        untracked = "[?($count)](fg:yellow)";
+        stashed = "[$](fg:mauve)";
+        modified = "[!($count)](fg:yellow)";
+        renamed = "[»($count)](fg:mauve)";
         deleted = "[✘($count)](style)";
-        staged = "[++($count)](fg:gold)";
-        ahead = "[⇡($count)](fg:foam)";
-        diverged = "⇕[[](fg:iris)[⇡($ahead_count)](fg:foam)[⇣($behind_count)](fg:rose)[\\]](fg:iris)";
-        behind = "[⇣($count)](fg:rose)";
+        staged = "[++($count)](fg:yellow)";
+        ahead = "[⇡($count)](fg:teal)";
+        diverged = "⇕[[](fg:mauve)[⇡($ahead_count)](fg:teal)[⇣($behind_count)](fg:rosewater)[\\]](fg:mauve)";
+        behind = "[⇣($count)](fg:rosewater)";
       };
 
       time = {
         disabled = false;
-        format = " [](fg:overlay)[ $time 󰧱 ]($style)[](fg:overlay)";
-        style = "bg:overlay fg:iris";
+        format = " [](fg:base)[ $time 󰧱 ]($style)[](fg:base)";
+        style = "bg:base fg:mauve";
         time_format = "%H:%M";
         use_12hr = true;
       };
 
       username = {
         disabled = false;
-        format = "[](fg:overlay)[ 󰧱 $user ]($style)[](fg:overlay) ";
+        format = "[](fg:base)[ 󰧱 $user ]($style)[](fg:base) ";
         show_always = true;
-        style_root = "bg:overlay fg:iris";
-        style_user = "bg:overlay fg:iris";
+        style_root = "bg:base fg:mauve";
+        style_user = "bg:base fg:mauve";
       };
 
       # Languages
       c = {
-        style = "bg:overlay fg:pine";
-        format = " [](fg:overlay)[ $symbol$version ]($style)[](fg:overlay)";
+        style = "bg:base fg:blue";
+        format = " [](fg:base)[ $symbol$version ]($style)[](fg:base)";
         disabled = false;
         symbol = " ";
       };
 
       elixir = {
-        style = "bg:overlay fg:pine";
-        format = " [](fg:overlay)[ $symbol$version ]($style)[](fg:overlay)";
+        style = "bg:base fg:blue";
+        format = " [](fg:base)[ $symbol$version ]($style)[](fg:base)";
         disabled = false;
         symbol = " ";
       };
 
       elm = {
-        style = "bg:overlay fg:pine";
-        format = " [](fg:overlay)[ $symbol$version ]($style)[](fg:overlay)";
+        style = "bg:base fg:blue";
+        format = " [](fg:base)[ $symbol$version ]($style)[](fg:base)";
         disabled = false;
         symbol = " ";
       };
 
       golang = {
-        style = "bg:overlay fg:pine";
-        format = " [](fg:overlay)[ $symbol$version ]($style)[](fg:overlay)";
+        style = "bg:base fg:blue";
+        format = " [](fg:base)[ $symbol$version ]($style)[](fg:base)";
         disabled = false;
         symbol = " ";
       };
 
       haskell = {
-        style = "bg:overlay fg:pine";
-        format = " [](fg:overlay)[ $symbol$version ]($style)[](fg:overlay)";
+        style = "bg:base fg:blue";
+        format = " [](fg:base)[ $symbol$version ]($style)[](fg:base)";
         disabled = false;
         symbol = " ";
       };
 
       java = {
-        style = "bg:overlay fg:pine";
-        format = " [](fg:overlay)[ $symbol$version ]($style)[](fg:overlay)";
+        style = "bg:base fg:blue";
+        format = " [](fg:base)[ $symbol$version ]($style)[](fg:base)";
         disabled = false;
         symbol = " ";
       };
 
       julia = {
-        style = "bg:overlay fg:pine";
-        format = " [](fg:overlay)[ $symbol$version ]($style)[](fg:overlay)";
+        style = "bg:base fg:blue";
+        format = " [](fg:base)[ $symbol$version ]($style)[](fg:base)";
         disabled = false;
         symbol = " ";
       };
 
       nodejs = {
-        style = "bg:overlay fg:pine";
-        format = " [](fg:overlay)[ $symbol$version ]($style)[](fg:overlay)";
+        style = "bg:base fg:blue";
+        format = " [](fg:base)[ $symbol$version ]($style)[](fg:base)";
         disabled = false;
         symbol = "󰎙 ";
       };
 
       nim = {
-        style = "bg:overlay fg:pine";
-        format = " [](fg:overlay)[ $symbol$version ]($style)[](fg:overlay)";
+        style = "bg:base fg:blue";
+        format = " [](fg:base)[ $symbol$version ]($style)[](fg:base)";
         disabled = false;
         symbol = "󰆥 ";
       };
 
       rust = {
-        style = "bg:overlay fg:pine";
-        format = " [](fg:overlay)[ $symbol$version ]($style)[](fg:overlay)";
+        style = "bg:base fg:blue";
+        format = " [](fg:base)[ $symbol$version ]($style)[](fg:base)";
         disabled = false;
         symbol = " ";
       };
 
       scala = {
-        style = "bg:overlay fg:pine";
-        format = " [](fg:overlay)[ $symbol$version ]($style)[](fg:overlay)";
+        style = "bg:base fg:blue";
+        format = " [](fg:base)[ $symbol$version ]($style)[](fg:base)";
         disabled = false;
         symbol = " ";
       };
 
       python = {
-        style = "bg:overlay fg:pine";
-        format = " [](fg:overlay)[ $symbol$version ]($style)[](fg:overlay)";
+        style = "bg:base fg:blue";
+        format = " [](fg:base)[ $symbol$version ]($style)[](fg:base)";
         disabled = false;
         symbol = " ";
       };
@@ -172,7 +191,7 @@
       nix_shell = {
         format = "via [$symbol$state( ($name))]($style) ";
         symbol = "󱄅 ";
-        style = "bold foam";
+        style = "bold teal";
         impure_msg = "impure";
         pure_msg = "pure";
         unknown_msg = "";
@@ -181,8 +200,8 @@
       };
 
       conda = {
-        style = "bg:overlay fg:pine";
-        format = " [](fg:overlay)[ $symbol$environment ]($style)[](fg:overlay)";
+        style = "bg:surface0 fg:blue";
+        format = " [](fg:surface0)[ $symbol$environment ]($style)[](fg:surface0)";
         disabled = false;
         symbol = "🅒 ";
       };

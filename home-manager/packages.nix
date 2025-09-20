@@ -17,6 +17,12 @@
 
     nh
     
+    # Python
+    python3
+    
+    # Node.js
+    nodejs_22
+    
     # LSP servers for Neovim
     nil  # Nix LSP
     lua-language-server  # Lua LSP
