@@ -67,3 +67,13 @@ nix fmt
 - Chinese input via fcitx5 with pinyin support
 - Docker enabled with rootless mode
 - Experimental features: nix-command, flakes
+
+
+  # Create the AccountsService directory (if it doesn't 
+  exist)
+  sudo mkdir -p /var/lib/AccountsService/users
+
+  # Set the avatar for your user account
+  echo -e "[User]\nIcon=/home/mark/nixconfig/wallpapers/
+  cat_avatar.jpg" | sudo tee
+  /var/lib/AccountsService/users/mark
