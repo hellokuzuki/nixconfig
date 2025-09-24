@@ -115,6 +115,7 @@
       vim
       curl
       wget
+      bash
 
       home-manager
 
@@ -134,6 +135,12 @@
       kitty
       fish
   ];
+
+  # Create /bin/bash symlink for compatibility
+  system.activationScripts.binbash = ''
+    mkdir -p /bin
+    ln -sfn ${pkgs.bash}/bin/bash /bin/bash
+  '';
 
   virtualisation = {
     # libvirtd.enable = true;
