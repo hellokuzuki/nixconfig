@@ -7,16 +7,22 @@
   # echo -e "[User]\nIcon=${config.home.homeDirectory}/nixconfig/wallpapers/solar.png" | sudo tee /var/lib/AccountsService/users/mark
 
   dconf.settings = {
+    # Set dark theme for all GNOME applications
+    "org/gnome/desktop/interface" = {
+      color-scheme = "prefer-dark";
+      gtk-theme = "Adwaita-dark";
+    };
+    
     "org/gnome/desktop/background" = {
       # Using relative paths from home directory
       # Place your wallpaper images in ~/nixconfig/wallpapers/
       # Then reference them like below
       
       # Wallpaper for light mode
-      picture-uri = "file://${config.home.homeDirectory}/nixconfig/wallpapers/solar.png";
+      picture-uri = "file://${config.home.homeDirectory}/nixconfig/wallpapers/mocha26.png";
       
       # Wallpaper for dark mode (optional, can use same as light mode)
-      picture-uri-dark = "file://${config.home.homeDirectory}/nixconfig/wallpapers/solar.png";
+      picture-uri-dark = "file://${config.home.homeDirectory}/nixconfig/wallpapers/mocha26.png";
       
       # How to display the wallpaper
       # Options: none, wallpaper, centered, scaled, stretched, zoom, spanned
@@ -25,7 +31,7 @@
     
     "org/gnome/desktop/screensaver" = {
       # Lock screen wallpaper (optional)
-      picture-uri = "file://${config.home.homeDirectory}/nixconfig/wallpapers/solar.png";
+      picture-uri = "file://${config.home.homeDirectory}/nixconfig/wallpapers/mocha26.png";
       picture-options = "zoom";
     };
   };

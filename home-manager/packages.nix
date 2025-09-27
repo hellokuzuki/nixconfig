@@ -14,6 +14,7 @@
     fzf
     eza
     fd
+    btop
 
     nh
     

@@ -1,5 +1,31 @@
 { inputs, pkgs, ... }:
 {
+  # Configure fcitx5 profile with Pinyin input method
+  xdg.configFile."fcitx5/profile".text = ''
+    [Groups/0]
+    # Group Name
+    Name=Default
+    # Layout
+    Default Layout=us
+    # Default Input Method
+    DefaultIM=keyboard-us
+
+    [Groups/0/Items/0]
+    # Name
+    Name=keyboard-us
+    # Layout
+    Layout=
+
+    [Groups/0/Items/1]
+    # Name
+    Name=pinyin
+    # Layout
+    Layout=
+
+    [GroupOrder]
+    0=Default
+  '';
+
   # Configure fcitx5 to use the Catppuccin mocha theme
   xdg.configFile."fcitx5/conf/classicui.conf".text = ''
     # Vertical Candidate List
