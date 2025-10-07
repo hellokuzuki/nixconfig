@@ -17,7 +17,10 @@
     btop
 
     nh
-    
+
+    # VPN
+    openvpn
+
     # Python
     python3
     
