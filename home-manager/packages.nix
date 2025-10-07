@@ -21,6 +21,10 @@
     # VPN
     openvpn
 
+    # AWS
+    awscli2
+    ssm-session-manager-plugin
+
     # Python
     python3
     
