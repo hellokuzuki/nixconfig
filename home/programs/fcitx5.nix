@@ -29,8 +29,6 @@
   xdg.configFile."fcitx5/conf/classicui.conf".text = ''
     # Vertical Candidate List
     Vertical Candidate List=False
-    # Use Per Screen DPI
-    PerScreenDPI=True
     # Use mouse wheel to go to prev or next page
     WheelForPaging=True
     # Font
@@ -48,16 +46,20 @@
     # Show Layout Name In Icon
     ShowLayoutNameInIcon=True
     # Use input method language to display text
-    UseInputMethodLangaugeToDisplayText=True
+    UseInputMethodLanguageToDisplayText=True
     # Theme
-    Theme=catppuccin-mocha
+    Theme=catppuccin-mocha-mauve
     # Dark Theme
-    DarkTheme=catppuccin-macchiato
+    DarkTheme=catppuccin-mocha-pink
     # Follow system light/dark color scheme
-    UseDarkTheme=True
-    # Follow system accent color if available
-    UseAccentColor=False
-    # Enable fractional scale
+    UseDarkTheme=False
+    # Follow system accent color if it is supported by theme and desktop
+    UseAccentColor=True
+    # Use Per Screen DPI on X11
+    PerScreenDPI=False
+    # Force font DPI on Wayland
+    ForceWaylandDPI=0
+    # Enable fractional scale under Wayland
     EnableFractionalScale=True
   '';
 }

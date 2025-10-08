@@ -25,6 +25,9 @@
     awscli2
     ssm-session-manager-plugin
 
+    # Docker
+    docker-compose
+
     # Python
     python3
     
@@ -36,5 +39,8 @@
     lua-language-server  # Lua LSP
     nodePackages.typescript-language-server  # TypeScript/JavaScript
     pyright  # Python (not under nodePackages)
+
+    # Development IDEs
+    jetbrains.idea-community
   ];
 }
