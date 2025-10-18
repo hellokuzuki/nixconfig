@@ -25,6 +25,9 @@
     awscli2
     ssm-session-manager-plugin
 
+    #Terraform
+    terraform
+
     # Docker
     docker-compose
 
