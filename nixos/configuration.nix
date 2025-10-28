@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
   imports =
@@ -119,7 +119,7 @@
 
       home-manager
 
-      claude-code
+      inputs.claude-code.packages.${pkgs.system}.default
       slack
       teams-for-linux
       mysql-workbench
@@ -134,6 +134,11 @@
 
       kitty
       fish
+
+      uv
+
+      #game
+      retroarch
   ];
 
   # Create /bin/bash symlink for compatibility

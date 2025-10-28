@@ -45,5 +45,9 @@
 
     # Development IDEs
     jetbrains.idea-community
+
+    # Gaming
+    # RetroArch with many cores included
+    retroarch-full
   ];
 }
