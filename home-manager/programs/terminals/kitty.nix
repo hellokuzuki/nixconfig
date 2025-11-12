@@ -17,6 +17,7 @@
       bold_italic_font = "auto";
       background_opacity = "1.0";
       dynamic_background_opacity = "true";
+      term = "xterm-256color";
     };
     extraConfig = ''
       ## name:     Catppuccin Kitty Mocha
