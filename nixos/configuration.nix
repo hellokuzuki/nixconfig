@@ -125,7 +125,7 @@
       mysql-workbench
       postman
       awscli2
-      jdk21
+      jdk17
 
       python3
       python3Packages.pip
