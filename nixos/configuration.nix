@@ -103,6 +103,9 @@
   
   programs.fish.enable = true;
 
+  # Allow running dynamically linked executables (needed for VSCode extensions like Claude Code)
+  programs.nix-ld.enable = true;
+
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
@@ -157,7 +160,7 @@
 
     docker = {
       enable = true;
-      storageDriver = "btrfs";
+      storageDriver = "overlay2";
       rootless = {
         enable = true;
         setSocketVariable = true;
